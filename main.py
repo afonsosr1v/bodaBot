@@ -1,7 +1,8 @@
 import nextcord
 import config 
-import coverpy
 import os
+import requests
+from bs4 import BeautifulSoup
 from nextcord.ext import commands
 from nextcord import Interaction, SlashOption, ChannelType, User
 from nextcord.abc import GuildChannel
@@ -9,6 +10,7 @@ from nextcord.abc import GuildChannel
 intents = nextcord.Intents.all()
 intents.members = True
 server_id = 688100174433878081
+#gis = GoogleImagesSearch(config.GOOGLESEARCHAPI, config.CX)
 
 bot = commands.Bot(command_prefix='$', intents=intents)
 
@@ -28,7 +30,7 @@ async def ping(interaction: nextcord.Interaction):
     await interaction.response.send_message("Ping")
 
 @bot.slash_command(guild_ids=[server_id], name="review", description="Comando para Review de Albuns")
-async def embed_create(
+async def echo(
     interaction: nextcord.Interaction,
     artista: str,
     album: str,
@@ -40,9 +42,16 @@ async def embed_create(
         description= f"Opinião: {opinião}",
         color = nextcord.Color.red()
     )
-    limit=1
-    result = coverpy.get_cover(album, limit)
-    embed.set_thumbnail(url=result)
+    ''' #Pesquisa da capa do album, n estpi a conseguir fazer funcionar
+    query = f"{artista} {album} album cover"
+    pesquisa = f"https://www.google.com/search?q={query}&tbm=isch"
+    resposta = requests.get(pesquisa)
+    soup = BeautifulSoup(resposta.text, "lxml")
+    img_tag = soup.find("img", {"class": "yWs4tf"})
+    img_link = img_tag.get("src")
+    
+    
+    embed.set_thumbnail(url=img_link) #Dar set da capa do album '''
     embed.add_field(name="Review", value=f"{nota}/10")
     embed.add_field(name="Reviewer", value=interaction.user)
     await interaction.response.send_message(embed=embed)
