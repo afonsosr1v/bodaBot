@@ -63,7 +63,7 @@ async def echo(
     album: str,
     nota: int,
     opinião: str):
-    #await interaction.response.send_message(f"```{artista} - {album} \n Opinião: {opinião} \n Nota: {nota}/10 \n User: {interaction.user}```")
+    print(f"```{artista} - {album} \n Opinião: {opinião} \n Nota: {nota}/10 \n User: {interaction.user}```")
     embed = nextcord.Embed(
         title= f"{artista} - {album}",
         description= f"{opinião}",

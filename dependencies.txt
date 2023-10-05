@@ -1,2 +1,3 @@
 pip install nextcord
+pip install asyncio
 pip install google-api-python-client
