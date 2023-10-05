@@ -4,16 +4,25 @@ It's primary use is to read reviews of music albums, present that review to the 
 
 ## Dependencies
 [Nextcord](https://docs.nextcord.dev/en/stable/)
+
 [Asyncio](https://docs.python.org/3/library/asyncio.html)
+
 [Google-API-Python-Client](https://github.com/googleapis/google-api-python-client)
 
 ## Getting Started
 After downloading the repository you'll need to create a *config.py* in the same directory and add the following lines according to your API Keys.
-`TOKEN = "Your Discord Bot Token"
+```
+TOKEN = "Your Discord Bot Token"
+
 GOOGLESEARCHAPI = "Your google search API Key"
+
 CX = "Your Custom Search Engine Key"
+
 SERVERID = Your Discord Server ID
-SHEET_ID = "Your Google Sheets ID"`
+
+SHEET_ID = "Your Google Sheets ID"
+```
+
 You will also need a credentials.json that you can download from your Google API page.
 
 ## Usage
