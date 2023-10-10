@@ -9,6 +9,8 @@ It's primary use is to read reviews of music albums, present that review to the 
 
 [Google-API-Python-Client](https://github.com/googleapis/google-api-python-client)
 
+[Thinker-Desginer](https://github.com/ParthJadhav/Tkinter-Designer)
+
 ## Getting Started
 After downloading the repository you'll need to create a *config.py* in the same directory and add the following lines according to your API Keys.
 ```
@@ -18,12 +20,9 @@ GOOGLESEARCHAPI = "Your google search API Key"
 
 CX = "Your Custom Search Engine Key"
 
-SERVERID = Your Discord Server ID
-
-SHEET_ID = "Your Google Sheets ID"
+SERVERID = Your Discord Server ID"
 ```
 
-You will also need a credentials.json that you can download from your Google API page.
 
 ## Usage
 ### Review Command
