@@ -32,4 +32,5 @@ Download and install the needed dependencies and run it.
 ### Review Command
 /review [artist name] [album artist] [review] [veredict]
 
-![alt text](https://i.ibb.co/g6jQc7n/boda-bot-icon2.png)
+<img src="https://i.ibb.co/g6jQc7n/boda-bot-icon2.png" alt="BodaBotLogo" width="200" height="200">
+
