@@ -19,6 +19,10 @@ It's primary use is to read reviews of music albums, present that review to the 
 
 [Google-API-Python-Client](https://github.com/googleapis/google-api-python-client)
 
+[Flask](https://flask.palletsprojects.com/en/2.3.x/changes/)
+
+[Connexion](https://connexion.readthedocs.io/en/latest/quickstart.html)
+
 
 ## Getting Started
 ### Executable
