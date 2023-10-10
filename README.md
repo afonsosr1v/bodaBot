@@ -32,7 +32,7 @@ Download and install the needed dependencies and run it.
 
 ## Usage
 ### Review Command
-/review [artist name] [album artist] [review] [veredict]
+                  /review [artist name] [album artist] [review] [veredict]
 
 
 
