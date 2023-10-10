@@ -1,7 +1,8 @@
 import nextcord
 import config 
-import config_menu
 import os
+import io
+import json
 from nextcord.ext import commands
 from nextcord import Interaction, SlashOption, ChannelType, User
 from nextcord.abc import GuildChannel
@@ -11,6 +12,57 @@ intents = nextcord.Intents.all()
 intents.members = True
 
 bot = commands.Bot(command_prefix='$', intents=intents)
+
+print("$$$$$$$\                  $$\                 $$$$$$$\             $$\  \n")   
+print("$$  __$$\                 $$ |                $$  __$$\            $$ |    \n")
+print("$$ |  $$ | $$$$$$\   $$$$$$$ | $$$$$$\        $$ |  $$ | $$$$$$\ $$$$$$\   \n")
+print("$$$$$$$\ |$$  __$$\ $$  __$$ | \____$$\       $$$$$$$\ |$$  __$$\\\_$$  _|    \n")
+print("$$  __$$\ $$ /  $$ |$$ /  $$ | $$$$$$$ |      $$  __$$\ $$ /  $$ | $$ |     \n")
+print("$$ |  $$ |$$ |  $$ |$$ |  $$ |$$  __$$ |      $$ |  $$ |$$ |  $$ | $$ |$$\ \n")
+print("$$$$$$$  |\$$$$$$  |\$$$$$$$ |\$$$$$$$ |      $$$$$$$  |\$$$$$$  | \$$$$  |\n")
+print("\_______/  \______/  \_______| \_______|      \_______/  \______/   \____/\n")
+print("                                                                          \n")
+print("   __         ___         __     \n")
+print(" /'__`\     /'___`\     /'__`\   \n")
+print("/\ \/\ \   /\_\ /\ \   /\ \/\ \  \n")
+print("\ \ \ \ \  \/_/// /__  \ \ \ \ \ \n")
+print(" \ \ \_\ \__  // /_\ \__\ \ \_\ \ \n")
+print("  \ \____/\_\/\______/\_\\\ \____/  \n")
+print("   \/___/\/_/\/_____/\/_/ \/___/    \n")
+print("                                   \n")
+print("@afonsosr1v\n")
+
+
+if os.path.exists("keys.json") and os.access("keys.json", os.R_OK):
+    print("Keys were found, starting bot...")
+    with open('keys.json') as json_file:  
+
+        keys = json.load(json_file)
+
+    config.TOKEN = keys['bot_token']
+    config.GOOGLESEARCHAPI = keys['google_search_api']
+    config.CX = keys['google_cx']
+    config.SERVERID = int(keys['server_id'])
+
+else:
+    print("Keys were not found, creating keys.json...")
+    print("Please input the following keys: \n")
+
+    keys = {  
+        'bot_token': input('Bot Token: '),
+        'google_search_api': input('Google Search API: '),
+        'google_cx': input('Google CX: '),
+        'server_id': input('Server ID: '),
+    }
+
+    with open('keys.json') as outfile:  
+        json.dump(keys, outfile)
+    
+    config.TOKEN = keys['bot_token']
+    config.GOOGLESEARCHAPI = keys['google_search_api']
+    config.CX = keys['google_cx']
+    config.SERVERID = int(keys['server_id'])
+
 
 
 @bot.event
