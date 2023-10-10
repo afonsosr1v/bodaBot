@@ -55,7 +55,7 @@ else:
         'server_id': input('Server ID: '),
     }
 
-    with open('keys.json') as outfile:  
+    with open('keys.json', 'w') as outfile:  
         json.dump(keys, outfile)
     
     config.TOKEN = keys['bot_token']
