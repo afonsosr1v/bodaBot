@@ -1,6 +1,8 @@
 /keys.c
 /keys.json
-/.vscode
-/__pycache__
-/cogs/__pycache__
+__pycache__/
+.vscode/
+cogs/__pycache__/
+build/
+build-instal
 /output/
