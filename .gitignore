@@ -1,2 +1,5 @@
 /keys.c
 /keys.json
+/.vscode
+/__pycache__
+/cogs/__pycache__
