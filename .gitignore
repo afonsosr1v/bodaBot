@@ -6,3 +6,5 @@ cogs/__pycache__/
 build/
 build-instal
 /output/
+build.txt
+build.json
