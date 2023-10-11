@@ -1,83 +1,59 @@
 # review.py
 
-from rng import generate_random_string
 from flask import abort,  make_response
 
-REVIEW = {
-    "1": {
-        "reviewID": "1",
-        "reviewerID": "1",
-        "serverID": "1",
-        "artista": "a",
-        "album": "b",
-        "albumImage": "ya",
-        "score": "c",
-        "review": "d",
-    },
-    "2": {
-        "reviewID": "2",
-        "reviewerID": "1",
-        "serverID": "1",
-        "artista": "A",
-        "album": "B",
-        "albumImage": "ya",
-        "score": "C",
-        "review": "D",
-    },
-    "3": {
-        "reviewID": "3",
-        "reviewerID": "1",
-        "serverID": "1",
-        "artista": "AA",
-        "album": "BB",
-        "albumImage": "ya",
-        "score": "CC",
-        "review": "DD",
-    }
-}
+from rsg import generate_random_string as rsg
+from config import db
+from models import Reviews, review_schema, reviews_schema
+
+
 
 def read_all():
-    return list(REVIEW.values())
+    reviews = Reviews.query.all()
+    return reviews_schema.dump(reviews)
 
 def create(review):
-    reviewID = generate_random_string()
-    reviewerID = "1"
-    serverID = "1"
+    reviewerID = review.get("reviewerID")
     artista = review.get("artista")
     album = review.get("album")
-    albumImage = "ya"
-    score = review.get("score")
-    review = review.get("review")
+    
+    existing_review = Reviews.query.filter(Reviews.reviewerID == reviewerID, Reviews.artista == artista, Reviews.album == album).one_or_none()
 
-    if reviewerID and artista and album not in REVIEW:
-        REVIEW[reviewID] = {
-            "reviewID": reviewID,
-            "reviewerID": reviewerID,
-            "serverID": serverID,
-            "artista": artista,
-            "album": album,
-            "albumImage": albumImage,
-            "score": score,
-            "review": review,
-        }
-        return REVIEW[reviewID], 201
+    if existing_review is None:
+        new_review = review_schema.load(review, session=db.session)
+        new_review.reviewerID = rsg(20)
+        new_review.serverID = rsg(20)
+        new_review.albumImage = rsg(20)
+        
+        new_review.reviewID = rsg(20)
+        while Reviews.query.filter(Reviews.reviewID == new_review.reviewID).one_or_none(): 
+            new_review.reviewID = rsg(20)
+        
+        db.session.add(new_review)
+        db.session.commit()
+        return review_schema.dump(new_review), 201
     else:
         abort(
             406,
-            f"Review for {album} already exists",
+            f"Review for {album} by {artista} already exists",
         )
 
 def read_reviewID(reviewID):
-    if reviewID in REVIEW:
-        return REVIEW[reviewID]
+    existing_review = Reviews.query.filter(Reviews.reviewID == reviewID).one_or_none()
+    
+    if existing_review is not None:
+        return review_schema.dump(existing_review)
     else:
         abort(
             404, f"Review with ID {reviewID} not found"
         )
 
 def delete(reviewID):
-    if reviewID in REVIEW:
-        del REVIEW[reviewID]
+    existing_review = Reviews.query.filter(Reviews.reviewID == reviewID).one_or_none()
+    
+    if existing_review:
+        db.session.delete(existing_review)
+        db.session.commit()
         return make_response(
             f"{reviewID} apagado com sucesso", 200
         )

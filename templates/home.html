@@ -6,6 +6,19 @@
 </head>
 <body>
     <h1>Welcome to Boda</h1>
-    <p>This is a basic homepage.</p>
+    <ul>
+        {% for review in reviews %}
+        <li>
+            ReviewID: {{ review.reviewID }} <br>
+            ReviewerID: {{ review.reviewerID }} <br>
+            ServerID: {{ review.serverID }} <br>
+            Artista: {{ review.artista }} <br>
+            Album: {{ review.album }} <br>
+            Imagem: {{ review.albumImage }} <br>
+            Score: {{ review.score }} <br>
+            Review: {{ review.review }} <br>
+        </li>
+        {% endfor %}
+    </ul>
 </body>
 </html>
