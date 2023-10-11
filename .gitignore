@@ -4,7 +4,7 @@ __pycache__/
 .vscode/
 cogs/__pycache__/
 build/
-build-instal
+build-installer/
 /output/
 build.txt
 build.json
