@@ -1,0 +1,51 @@
+id: 
+    type: reviewID(?)
+
+reviewID: 
+    type: "string"
+    maxLength: 20
+    pattern: ^[a-zA-Z 0-9]*$
+    description: "ID da review"
+
+reviewerID: 
+    type: "string"
+    maxLength: ?
+    pattern: ^[a-zA-Z 0-9]*$
+    description: "ID de discord do reviewer"
+
+serverID: 
+    type: "string"
+    maxLength: ?
+    pattern: ^[a-zA-Z 0-9]*$
+    description: "ID do server do discord do reviewer"
+
+artista: 
+    type: "string"
+    maxLength: 20
+    pattern: ^[a-zA-Z 0-9]*$
+    description: "artista"
+
+album: 
+    type: "string"
+    maxLength: 20
+    pattern: ^[a-zA-Z 0-9]*$
+    description: "album"
+
+albumImage: 
+    type: "string"
+    maxLength: 200
+    pattern: ^[a-zA-Z 0-9]*$
+    description: "URL da imagem do album googleimagesAPI"
+
+score:  
+    type: "string"
+    maxLength: 2
+    pattern: ^[0-9]*$
+    description: "score de 0 a 10"
+
+review: 
+    type: "string"
+    maxLength: 1000
+    pattern: ^[a-zA-Z 0-9]*$
+    description: "corpo da review"
+

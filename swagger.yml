@@ -13,20 +13,60 @@ components:
   schemas:
     Review:
       type: "object"
+      additionalProperties: false
       required:
         - artista
         - album
         - score
         - review
       properties:
-        artista:
+#       reviewID:
+#         type: "string"
+#         maxLength: 20
+#         pattern: ^[a-zA-Z 0-9]*$
+#        reviewerID: 
+#          type: "string"
+#          maxLength: 20
+#          pattern: ^[a-zA-Z 0-9]*$
+#          description: "ID de discord do reviewer"
+#        serverID: 
+#          type: "string"
+#          maxLength: 20
+#          pattern: ^[a-zA-Z 0-9]*$
+#          description: "ID do server do discord do reviewer"
+        artista: 
           type: "string"
+          maxLength: 20
+          pattern: ^[a-zA-Z 0-9]*$
+          description: "artista"
         album:
           type: "string"
+          maxLength: 20
+          pattern: ^[a-zA-Z 0-9]*$
+          description: "album"
+#        albumImage: 
+#          type: "string"
+#          maxLength: 200
+#          pattern: ^[]*$
+#          description: "URL da imagem do album googleimagesAPI"
         score:
           type: "string"
+          maxLength: 1
+          pattern: ^[0-9]*$
+          description: "score de 0 a 10"
         review:
           type: "string"
+          maxLength: 200
+          pattern: ^[a-zA-Z 0-9]*$
+          description: "corpo da review"
+  parameters:
+    reviewID:
+      name: "reviewID"
+      description: "ID da review"
+      in: path
+      required: True
+      schema:
+        type: "string"
 
 paths:
   /reviews:
@@ -54,3 +94,24 @@ paths:
       responses:
         "201":
           description: "Successfully created Review"
+  /reviews/{reviewID}:
+    get:
+      operationId: "review.read_reviewID"
+      tags:
+        - Review
+      summary: "Let review por ID"
+      parameters:
+        - $ref: "#/components/parameters/reviewID"
+      responses:
+        "200":
+          description: "Leu review por ID com sucesso"
+    delete:
+      tags:
+        - Review
+      operationId: "review.delete"
+      summary: "Apagar review"
+      parameters:
+        - $ref: "#/components/parameters/reviewID"
+      responses:
+        "204":
+          description: "Review apagada com sucesso"
