@@ -3,15 +3,20 @@ import config
 import os
 import io
 import json
+
 from nextcord.ext import commands
 from nextcord import Interaction, SlashOption, ChannelType, User
 from nextcord.abc import GuildChannel
 from googleapiclient.discovery import build
 
+
 intents = nextcord.Intents.all()
 intents.members = True
 
 bot = commands.Bot(command_prefix='$', intents=intents)
+
+def on_exit(icon, item):
+    icon.stop()
 
 print("$$$$$$$\                  $$\                 $$$$$$$\             $$\  ")   
 print("$$  __$$\                 $$ |                $$  __$$\            $$ |    ")
@@ -65,6 +70,9 @@ else:
 
 
 
+
+
+
 @bot.event
 async def on_ready():
     print("888888ba             dP      .d88888b    dP                       dP                  dP ")
@@ -76,6 +84,7 @@ async def on_ready():
     print("                                     ")
     print(f'{bot.user.name} - ID: {(bot.user.id)}')
     print('*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*')
+
 
 
 #Load Cogs
@@ -109,6 +118,5 @@ async def echo(
     embed.add_field(name="Review", value=f"{nota}/10")
     embed.add_field(name="Reviewer", value=interaction.user)
     await interaction.response.send_message(embed=embed)
-
 
 bot.run(config.TOKEN)   

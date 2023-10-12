@@ -1,1 +1,3 @@
 python -m auto_py_to_exe
+
+pyinstaller --noconfirm --onefile --console --icon "./assets/ico/v2.ico" --name "BodaBot 0.2.4"  "./main.py"

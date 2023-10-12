@@ -2,10 +2,10 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Boda Bot"
-#define MyAppVersion "0.2.3"
+#define MyAppVersion "0.2.4"
 #define MyAppPublisher "Barraca Família Software"
 #define MyAppURL "https://github.com/afonsosr1v/bodaBot"
-#define MyAppExeName "BodaBot 0.2.3.exe"
+#define MyAppExeName "BodaBot 0.2.4.exe"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
@@ -22,10 +22,10 @@ DefaultDirName={autopf}\{#MyAppName}
 DisableProgramGroupPage=yes
 InfoAfterFile=.\README.md
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
-;PrivilegesRequired=lowest
-OutputDir=.\output
-OutputBaseFilename=BodaBot0.2.3-installer
-SetupIconFile=C:\Users\nobre\Downloads\boda bot icon2.ico
+PrivilegesRequired=lowest
+OutputDir=.\build-installer
+OutputBaseFilename=BodaBot0.2.4-installer
+SetupIconFile=.\assets\ico\v2.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -37,7 +37,7 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "C:\Users\nobre\Documents\auto-py-to-exe-2.40.0\output\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\nobre\Desktop\botDiscord\build\BodaBot 0.2.4.exe"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
