@@ -4,12 +4,12 @@ from flask import abort,  make_response
 
 from rsg import generate_random_string as rsg
 from config import db
-from models import Reviews, review_schema, reviews_schema
+from models import Review, review_schema, reviews_schema
 
 
 
 def read_all():
-    reviews = Reviews.query.all()
+    reviews = Review.query.all()
     return reviews_schema.dump(reviews)
 
 def create(review):
@@ -17,7 +17,7 @@ def create(review):
     artista = review.get("artista")
     album = review.get("album")
     
-    existing_review = Reviews.query.filter(Reviews.reviewerID == reviewerID, Reviews.artista == artista, Reviews.album == album).one_or_none()
+    existing_review = Review.query.filter(Review.reviewerID == reviewerID, Review.artista == artista, Review.album == album).one_or_none()
 
     if existing_review is None:
         new_review = review_schema.load(review, session=db.session)
@@ -26,7 +26,7 @@ def create(review):
         new_review.albumImage = rsg(20)
         
         new_review.reviewID = rsg(20)
-        while Reviews.query.filter(Reviews.reviewID == new_review.reviewID).one_or_none(): 
+        while Review.query.filter(Review.reviewID == new_review.reviewID).one_or_none(): 
             new_review.reviewID = rsg(20)
         
         db.session.add(new_review)
@@ -39,7 +39,7 @@ def create(review):
         )
 
 def read_reviewID(reviewID):
-    existing_review = Reviews.query.filter(Reviews.reviewID == reviewID).one_or_none()
+    existing_review = Review.query.filter(Review.reviewID == reviewID).one_or_none()
     
     if existing_review is not None:
         return review_schema.dump(existing_review)
@@ -49,7 +49,7 @@ def read_reviewID(reviewID):
         )
 
 def delete(reviewID):
-    existing_review = Reviews.query.filter(Reviews.reviewID == reviewID).one_or_none()
+    existing_review = Review.query.filter(Review.reviewID == reviewID).one_or_none()
     
     if existing_review:
         db.session.delete(existing_review)

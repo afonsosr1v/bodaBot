@@ -6,12 +6,20 @@
 </head>
 <body>
     <h1>Welcome to Boda</h1>
+    {% for user in users %}
+    <h2>
+        <ul>
+            <li>
+                UserID: {{ user.userID }} <br>
+                ServerID: {{ user.serverID }} <br>
+            </li>
+        </ul>
+    </h2>
     <ul>
-        {% for review in reviews %}
+        {% for review in user.reviews %}
         <li>
             ReviewID: {{ review.reviewID }} <br>
             ReviewerID: {{ review.reviewerID }} <br>
-            ServerID: {{ review.serverID }} <br>
             Artista: {{ review.artista }} <br>
             Album: {{ review.album }} <br>
             Imagem: {{ review.albumImage }} <br>
@@ -20,5 +28,6 @@
         </li>
         {% endfor %}
     </ul>
+    {% endfor %}
 </body>
 </html>

@@ -1,8 +1,8 @@
 import random
 import string
 
-from config import db
-from models import Reviews, review_schema, reviews_schema
+#from config import db
+#from models import Reviews, review_schema, reviews_schema
 
 def generate_random_string(length=20):
     # Define the set of characters to choose from
