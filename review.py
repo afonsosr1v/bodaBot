@@ -15,6 +15,9 @@ def read_all():
     reviews = Review.query.all()
     return reviews_schema.dump(reviews)
 
+def read_top_three_albums():
+    top = Review.query.filter()
+
 def create(review):
     userID = review.get("userID")
     artista = review.get("artista")

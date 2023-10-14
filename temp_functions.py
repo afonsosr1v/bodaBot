@@ -16,3 +16,7 @@ def check_if_user_exists(userID):
     
 def generate_username():
     return rsg(7)
+
+def get_top_3_albums():
+    reviews = Review.query.all()
+    return reviews_schema.dump(reviews)

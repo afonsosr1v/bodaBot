@@ -13,7 +13,7 @@ app.add_api(config.basedir / "swagger.yml")
 @app.route("/")
 def home():
     users = User.query.all()
-    return render_template("index.html", users=users)
+    return render_template("home.html", users=users)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, debug=True)
