@@ -7,6 +7,7 @@ from rsg import generate_random_string as rsg
 
 RREVIEWS_AND_USERS = [
     {
+        "userName": "Nobrega",
         "userID": rsg(20),
         "serverID": rsg(20),
         "reviews": [
@@ -16,6 +17,7 @@ RREVIEWS_AND_USERS = [
         ],
     },
     {
+        "userName": "Antunes",
         "userID": rsg(20),
         "serverID": rsg(20),
         "reviews": [
@@ -24,6 +26,7 @@ RREVIEWS_AND_USERS = [
         ],
     },
     {
+        "userName": "Avô",
         "userID": rsg(20),
         "serverID": rsg(20),
         "reviews": [
@@ -38,11 +41,12 @@ with app.app_context(): # type: ignore
     db.create_all()
 
     for user in RREVIEWS_AND_USERS:
-        new_user = User(userID=user.get("userID"), serverID=user.get("serverID"))
+        new_user = User(userName=user.get("userName"), userID=user.get("userID"), serverID=user.get("serverID"))
         for reviews in user.get("reviews", []):
             new_user.reviews.append(
                 Review(
                     reviewID=reviews[0],
+                    userID=user.get("userID"),
                     artista=reviews[1],
                     album=reviews[2],
                     albumImage=reviews[3],

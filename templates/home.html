@@ -1,6 +1,9 @@
+<!--    templates/home.html    -->
+
 <!DOCTYPE html>
-<html>
+<html lang="pt">
 <head>
+    <meta charset="UTF-8">
     <title>Boda</title>
     <link rel="icon" href="./png/v2.png" type="image/png">
 </head>
@@ -10,6 +13,7 @@
     <h2>
         <ul>
             <li>
+                UserName: {{ user.userName }} <br>
                 UserID: {{ user.userID }} <br>
                 ServerID: {{ user.serverID }} <br>
             </li>
@@ -19,7 +23,7 @@
         {% for review in user.reviews %}
         <li>
             ReviewID: {{ review.reviewID }} <br>
-            ReviewerID: {{ review.reviewerID }} <br>
+            UserID: {{ review.userID }} <br>
             Artista: {{ review.artista }} <br>
             Album: {{ review.album }} <br>
             Imagem: {{ review.albumImage }} <br>
@@ -29,5 +33,15 @@
         {% endfor %}
     </ul>
     {% endfor %}
+
+    <br>
+    <!-- DEBUG -->
+
+    <h3>DEBUG</h3>
+    {% if config['DEBUG'] %}
+
+        {% include "_debug.html" %}
+
+    {% endif %}
 </body>
 </html>

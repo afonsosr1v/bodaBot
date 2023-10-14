@@ -24,7 +24,7 @@ components:
 #         type: "string"
 #         maxLength: 20
 #         pattern: ^[a-zA-Z 0-9]*$
-#        reviewerID: 
+#        userID: 
 #          type: "string"
 #          maxLength: 20
 #          pattern: ^[a-zA-Z 0-9]*$
@@ -60,21 +60,69 @@ components:
           pattern: ^[a-zA-Z 0-9]*$
           description: "corpo da review"
   parameters:
+    userID:
+      name: "userID"
+      description: "ID do reviewer"
+      in: path
+      required: true
+      schema:
+        type: "string"
     reviewID:
       name: "reviewID"
       description: "ID da review"
       in: path
-      required: True
+      required: true
       schema:
         type: "string"
 
 paths:
+  /users:
+    get:
+      operationId: "user.read_all"
+      tags:
+        - "Users"
+      summary: "Read all users"
+      responses:
+        "200":
+          description: "Successfully read all users"
+  /users+reviews:
+    get:
+      operationId: "user.read_all_with_reviews"
+      tags:
+        - "Users + Reviews"
+      summary: "Read all users with they're reviews"
+      responses:
+        "200":
+          description: "Successfully read all users and reviews"
+  /users/{userID}:
+    get:
+        operationId: "user.read_userID"
+        tags:
+          - User
+        summary: "Let user por ID"
+        parameters:
+          - $ref: "#/components/parameters/userID"
+        responses:
+          "200":
+            description: "Leu user por ID com sucesso"
+  /users/{userID}/reviews:
+    get:
+        operationId: "user.read_user_reviews"
+        tags:
+          - User
+          - Review
+        summary: "Let reviews do user"
+        parameters:
+          - $ref: "#/components/parameters/userID"
+        responses:
+          "200":
+            description: "Leu reviews do user com sucesso"
   /reviews:
     get:
       operationId: "review.read_all"
       tags:
         - "Reviews"
-      summary: "Read reviews"
+      summary: "Read all reviews"
       responses:
         "200":
           description: "Successfully read reviews"

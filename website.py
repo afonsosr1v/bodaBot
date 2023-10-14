@@ -1,4 +1,6 @@
 from flask import render_template
+from flask_bootstrap import Bootstrap5
+
 import config
 from models import User
 
@@ -6,6 +8,7 @@ from models import User
 app = config.connex_app
 app.add_api(config.basedir / "swagger.yml")
 
+bootstrap = Bootstrap5(app)
 
 @app.route("/")
 def home():

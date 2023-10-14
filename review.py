@@ -1,3 +1,4 @@
+# Description: This file contains the routes for the user blueprint.
 # review.py
 
 from flask import abort,  make_response
@@ -5,6 +6,8 @@ from flask import abort,  make_response
 from rsg import generate_random_string as rsg
 from config import db
 from models import Review, review_schema, reviews_schema
+from temp_functions import *
+from user import create as create_user
 
 
 
@@ -13,15 +16,18 @@ def read_all():
     return reviews_schema.dump(reviews)
 
 def create(review):
-    reviewerID = review.get("reviewerID")
+    userID = review.get("userID")
     artista = review.get("artista")
     album = review.get("album")
     
-    existing_review = Review.query.filter(Review.reviewerID == reviewerID, Review.artista == artista, Review.album == album).one_or_none()
+    if not check_if_user_exists(userID):
+        create_user(generate_username())
+
+    existing_review = Review.query.filter(Review.userID == userID, Review.artista == artista, Review.album == album).one_or_none()
 
     if existing_review is None:
         new_review = review_schema.load(review, session=db.session)
-        new_review.reviewerID = rsg(20)
+        new_review.userID = rsg(20)
         new_review.serverID = rsg(20)
         new_review.albumImage = rsg(20)
         

@@ -8,7 +8,7 @@ Reviews:
         pattern: ^[a-zA-Z 0-9]*$
         description: "ID da review"
 
-    reviewerID: 
+    userID: 
         type: "string"
         maxLength: ?
         pattern: ^[a-zA-Z 0-9]*$
@@ -45,7 +45,7 @@ Reviews:
         description: "corpo da review"
 
 Users:
-    reviewerID: 
+    userID: 
         type: "string"
         maxLength: ?
         pattern: ^[a-zA-Z 0-9]*$
