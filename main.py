@@ -1,5 +1,5 @@
 import nextcord
-import configi 
+import tokens 
 import os
 import io
 import json
@@ -27,15 +27,15 @@ print("$$ |  $$ |$$ |  $$ |$$ |  $$ |$$  __$$ |      $$ |  $$ |$$ |  $$ | $$ |$$
 print("$$$$$$$  |\$$$$$$  |\$$$$$$$ |\$$$$$$$ |      $$$$$$$  |\$$$$$$  | \$$$$  |")
 print("\_______/  \______/  \_______| \_______|      \_______/  \______/   \____/")
 print("                                                                          ")
-print("   __         ___      __ __      ")
-print(" /'__`\     /'___`\   /\ \\\ \   ")
-print("/\ \/\ \   /\_\ /\ \  \ \ \\\ \     ")
-print("\ \ \ \ \  \/_/// /__  \ \ \\\ \_  ")
-print(" \ \ \_\ \__  // /_\ \__\ \__ ,__\ ")
-print("  \ \____/\_\/\______/\_\\\/_/\_\_/")
-print("   \/___/\/_/\/_____/\/_/   \/_/")
+print("   __      ______      _      ")
+print(" /'__`\   /\  ___\   /' \    ")
+print("/\ \/\ \  \ \ \__/  /\_, \   ")
+print("\ \ \ \ \  \ \___``\\\/_/\ \  ")
+print(" \ \ \_\ \__\/\ \L\ \__\ \ \  ")
+print("  \ \____/\_\\\ \____/\_\\\ \_\\")
+print("   \/___/\/_/ \/___/\/_/ \/_/")
 print("                                   ")
-print("@afonsosr1v\n")
+print("@afonsosr1v\n @Grd100000\n")
 
 
 if os.path.exists("keys.json") and os.access("keys.json", os.R_OK):
@@ -44,10 +44,10 @@ if os.path.exists("keys.json") and os.access("keys.json", os.R_OK):
 
         keys = json.load(json_file)
 
-    config.TOKEN = keys['bot_token']
-    config.GOOGLESEARCHAPI = keys['google_search_api']
-    config.CX = keys['google_cx']
-    config.SERVERID = int(keys['server_id'])
+    tokens.TOKEN = keys['bot_token']
+    tokens.GOOGLESEARCHAPI = keys['google_search_api']
+    tokens.CX = keys['google_cx']
+    tokens.SERVERID = int(keys['server_id'])
 
 else:
     print("Keys were not found, creating keys.json...")
@@ -63,10 +63,10 @@ else:
     with open('keys.json', 'w') as outfile:  
         json.dump(keys, outfile)
     
-    config.TOKEN = keys['bot_token']
-    config.GOOGLESEARCHAPI = keys['google_search_api']
-    config.CX = keys['google_cx']
-    config.SERVERID = int(keys['server_id'])
+    tokens.TOKEN = keys['bot_token']
+    tokens.GOOGLESEARCHAPI = keys['google_search_api']
+    tokens.CX = keys['google_cx']
+    tokens.SERVERID = int(keys['server_id'])
 
 
 
@@ -93,25 +93,32 @@ async def on_ready():
 #    bot.load_extension(f'cogs.{filename[:-3]}')
 
 
-@bot.slash_command(name="ping", description="Pinga de Volta para Teste", guild_ids=[config.SERVERID])
+@bot.slash_command(name="ping", description="Pinga de Volta para Teste", guild_ids=[tokens.SERVERID])
 async def ping(interaction: nextcord.Interaction):
     await interaction.response.send_message("Ping")
 
-@bot.slash_command(guild_ids=[config.SERVERID], name="review", description="Comando para Review de Albuns")
-async def echo(
-    interaction: nextcord.Interaction,
+@bot.slash_command(guild_ids=[tokens.SERVERID], name="review", description="Comando para Review de Albuns")
+async def speak(
+    interaction: Interaction,
     artista: str,
     album: str,
-    nota: int,
-    opinião: str):
+    opinião: str,
+    nota: int = SlashOption(
+        name="nota",
+        choices={"0/10": 0. "1/10": 1, "2/10": 2, "3/10": 3, "4/10": 4, "5/10": 5, "6/10": 6, "7/10": 7, "8/10": 8, "9/10": 9, "10/10": 10},
+        ),
+    ):
+    
     print(f"```\n{artista} - {album} \n Opinião: {opinião} \n Nota: {nota}/10 \n User: {interaction.user}\n```")
+
     embed = nextcord.Embed(
         title= f"{artista} - {album}",
         description= f"{opinião}",
         color = nextcord.Color.red()
     )
-    resource = build("customsearch", "v1", developerKey=config.GOOGLESEARCHAPI).cse()
-    result = resource.list(q=f"{artista} {album}", cx=config.CX, searchType="image").execute()
+    
+    resource = build("customsearch", "v1", developerKey=tokens.GOOGLESEARCHAPI).cse()
+    result = resource.list(q=f"{artista} {album}", cx=tokens.CX, searchType="image").execute()
     img_link = result['items'][0]['link']
     
     embed.set_image(url=img_link) #Dar set da capa do album '''
@@ -119,5 +126,5 @@ async def echo(
     embed.add_field(name="Reviewer", value=interaction.user)
     await interaction.response.send_message(embed=embed)
 
-bot.run(config.TOKEN)   
+bot.run(tokens.TOKEN)   
 
