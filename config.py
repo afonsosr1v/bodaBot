@@ -1,16 +1,15 @@
-#config.py
-
 import pathlib
-import connexion
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
+from flask_bootstrap import Bootstrap5
 
-basedir = pathlib.Path(__file__).parent.resolve()                          
-connex_app = connexion.App(__name__, specification_dir=basedir, server_args={'static_folder':'./frontEnd/static', 'template_folder':'./frontEnd/templates'})
+basedir = pathlib.Path(__file__).parent.resolve() 
 
-app = connex_app.app
-app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{basedir / 'bodabot.db'}"
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app = Flask(__name__, template_folder='frontend', static_folder='frontend/static')
+app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{basedir / 'bodaDB.db'}"
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+bs = Bootstrap5(app)
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
