@@ -126,4 +126,24 @@ async def speak(
     embed.add_field(name="Reviewer", value=interaction.user)
     await interaction.response.send_message(embed=embed)
 
-bot.run(tokens.TOKEN)   
+@bot.slash_command(guild_ids=[tokens.SERVERID], name="mimimi", description="tchilla")       #function to talk over user
+async def mimimi(interaction: Interaction, victim: User):
+    await interaction.response.send_message(f"Vou mimimimi {victim.mention}")
+    if victim:
+        print(f'A "mimimimi" : {victim.name} (ID: {victim})')
+
+        channel = victim.voice.channel
+
+        voice_client = await channel.connect()
+
+        while(victim.voice and victim.voice.channel):
+            await voice_client.play(nextcord.FFmpegPCMAudio(source="audio.mp3"))
+
+
+
+
+
+
+
+
+bot.run(tokens.TOKEN)
