@@ -1,5 +1,5 @@
 import nextcord
-import tokens 
+import tokens
 import os
 import io
 import json
@@ -126,24 +126,18 @@ async def speak(
     embed.add_field(name="Reviewer", value=interaction.user)
     await interaction.response.send_message(embed=embed)
 
-@bot.slash_command(guild_ids=[tokens.SERVERID], name="mimimi", description="tchilla")       #function to talk over user
-async def mimimi(interaction: Interaction, victim: User):
-    await interaction.response.send_message(f"Vou mimimimi {victim.mention}")
-    if victim:
-        print(f'A "mimimimi" : {victim.name} (ID: {victim})')
-
-        channel = victim.voice.channel
-
-        voice_client = await channel.connect()
-
-        while(victim.voice and victim.voice.channel):
-            await voice_client.play(nextcord.FFmpegPCMAudio(source="audio.mp3"))
-
-
-
-
-
-
-
+#não funciona ainda
+@bot.slash_command(guild_ids=[tokens.SERVERID], name="mimimi", description="mimimi")
+async def play(interaction: Interaction,ctx : commands.Context):
+    user = ctx.author
+    voice_channel = user.voice.channel
+    if voice_channel is not None:
+        vc = await voice_channel.connect()
+        vc.play(nextcord.FFmpegPCMAudio(executable="ffmpeg.exe", source="audio.mp3"))
+        while vc.is_playing():
+            await nextcord.sleep(5)
+        await vc.disconnect()
+    else:
+        await ctx.send("You need to be in a voice channel to use this command")
 
 bot.run(tokens.TOKEN)
